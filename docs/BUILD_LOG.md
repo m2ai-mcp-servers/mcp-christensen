@@ -190,13 +190,132 @@ Ready for Day 3: MCP Server Integration
 
 ---
 
-## Day 3: MCP Server Integration (Planned)
+## Day 3: MCP Server Integration (Jan 13, 2026)
 
-### Goals
-- Create MCP server entry point
-- Expose analyze-decision tool
-- Expose case-study tool
-- Test with MCP inspector
+### Time Spent: ~1 hour
+
+### Deliverables
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `src/tools/analyze-decision.ts` | ~220 | Main strategic analysis tool |
+| `src/tools/case-study.ts` | ~280 | Case study finder and explorer |
+| `src/tools/get-framework.ts` | ~320 | Framework reference tool |
+| `src/tools/index.ts` | ~25 | Barrel export |
+| `src/index.ts` (updated) | ~160 | Complete MCP server with handlers |
+
+### Tools Implemented
+
+#### 1. `analyze_decision`
+Primary strategic analysis tool. Takes a business decision and applies:
+- Jobs-to-Be-Done analysis
+- Disruption theory classification
+- Capabilities-Processes-Priorities assessment
+- Resource dependence evaluation
+
+Returns structured prompts for Claude to apply Christensen's thinking.
+
+#### 2. `case_study`
+Case study exploration tool. Can:
+- Match situations to relevant case studies
+- Deep-dive into specific cases (steel, disks, milkshake, Honda, Intel)
+- Show key takeaways, common misapplications, and diagnostic questions
+
+#### 3. `get_framework`
+Framework reference tool. Provides:
+- Summary, full, or questions-only views
+- Any individual framework or all at once
+- Christensen's voice phrases for each framework
+
+### Process Followed
+
+1. **Tool Implementation** (40 min)
+   - Created zod schemas for input validation
+   - Built prompt generators that structure Claude's thinking
+   - Added case study matching with extension data
+   - Implemented framework summaries and full references
+
+2. **MCP Server Wiring** (15 min)
+   - Imported tool definitions and handlers
+   - Set up ListToolsRequestSchema handler
+   - Set up CallToolRequestSchema handler with switch/case routing
+   - Added error handling with isError flag
+
+3. **Testing** (5 min)
+   - Verified build succeeds
+   - Tested server startup
+   - Validated tools/list returns all 3 tools
+   - Tested tools/call with get_framework
+
+### Key Decisions Made
+
+| Decision | Rationale |
+|----------|-----------|
+| Zod for validation | Runtime type safety + auto-generates nice errors |
+| Tool returns prompts | Claude applies the thinking, not deterministic logic |
+| Case study extensions | Separate detailed info from core pattern matching |
+| Error handling in handler | Return isError: true so Claude can recover gracefully |
+
+### Architecture Note
+
+The MCP server is a **prompt-shaping layer**, not a logic layer:
+
+```
+User Decision
+     │
+     ▼
+┌────────────────────┐
+│  MCP Tool Handler  │
+│  (shapes context)  │
+└────────────────────┘
+     │
+     ▼
+┌────────────────────┐
+│  Structured Prompt │
+│  + Framework Guide │
+│  + Case Studies    │
+│  + Voice Markers   │
+└────────────────────┘
+     │
+     ▼
+┌────────────────────┐
+│  Claude            │
+│  (applies persona) │
+└────────────────────┘
+```
+
+This design lets Claude do what it does best (reasoning, nuance, judgment)
+while the MCP tools provide the structured context of Christensen's frameworks.
+
+### Testing Results
+
+```bash
+# Server starts correctly
+$ node dist/index.js
+Christensen MCP server running on stdio
+Available tools: analyze_decision, case_study, get_framework
+
+# tools/list returns all 3 tools with schemas
+# tools/call works for get_framework
+
+# Ready for Day 4 real-world testing
+```
+
+### Files Created
+
+```
+src/
+├── tools/
+│   ├── index.ts              # Barrel export
+│   ├── analyze-decision.ts   # Main analysis tool
+│   ├── case-study.ts         # Case study explorer
+│   └── get-framework.ts      # Framework reference
+└── index.ts                  # Complete MCP server
+```
+
+### Day 3 Status: COMPLETE
+
+Ready for Day 4: Testing & Validation with Real Decisions
 
 ---
 
