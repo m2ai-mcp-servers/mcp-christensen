@@ -319,12 +319,83 @@ Ready for Day 4: Testing & Validation with Real Decisions
 
 ---
 
-## Day 4: Testing & Validation (Planned)
+## Day 4: Testing & Validation (Jan 13, 2026)
 
-### Goals
-- Run 3 real decisions through the agent
-- Validate against fidelity markers
-- Document insights generated
+### Time Spent: ~45 min
+
+### Deliverables
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `src/validation/fidelity-check.ts` | ~250 | Automated fidelity scoring |
+| `src/validation/test-decisions.ts` | ~180 | Real decision test cases |
+| `src/validation/index.ts` | ~20 | Barrel export |
+
+### Test Decisions (From Matthew's Real Context)
+
+| Decision | Score | Case Study Match |
+|----------|-------|------------------|
+| Anthropic MCP Engineer positioning | 90/100 | Honda (unexpected value) |
+| Agent Factory vs Single Agents | 90/100 | Intel (process migration) |
+| n8n to Python migration timing | 90/100 | Intel (capability migration) |
+
+**All 3 tests passed** with 90/100 fidelity scores.
+
+### Fidelity Scoring System
+
+**Must Include (5 markers)**:
+- Framework reference (JTBD, disruption, CPP)
+- JTBD question ("what job...")
+- Humility ("theory suggests...")
+- Case study reference
+- Organizational constraints
+
+**Should Include (4 markers)**:
+- Story/example
+- Multiple frameworks
+- Multiple humility markers
+- Combined analysis
+
+**Anti-Patterns (penalties)**:
+- Overconfidence ("definitely", "guaranteed")
+- Dismissiveness (but excludes Christensen's "not stupid - rational")
+- Generic advice without theory
+
+### Key Insights Generated
+
+**Factory Decision**:
+- Matched to Intel microprocessor case
+- Insight: Factory = process investment, not just resource creation
+- Question raised: "What processes have you developed that could transfer?"
+
+**Anthropic Positioning**:
+- Matched to Honda motorcycles case
+- Insight: Your unexpected value (hands-on MCP experience) may matter more than expected credentials
+- Question raised: "What job is Anthropic hiring this role to do?"
+
+**n8n Migration**:
+- Matched to Intel case
+- Insight: n8n is a resource; Python skills are transferable processes
+- Question raised: "Would your priorities allow you to invest in this new direction?"
+
+### Bug Fixed
+
+Fidelity checker initially flagged "stupid" as dismissive, but Christensen's phrase
+"It's not that managers are stupid - they're rational" is empathetic, not dismissive.
+Added context-aware filtering to handle this.
+
+### Files Created
+
+```
+src/validation/
+├── index.ts             # Barrel export
+├── fidelity-check.ts    # Scoring system
+└── test-decisions.ts    # Real test cases
+```
+
+### Day 4 Status: COMPLETE
+
+Ready for Day 5: Community Prep (README, GitHub, documentation)
 
 ---
 

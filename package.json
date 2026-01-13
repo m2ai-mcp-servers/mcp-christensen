@@ -8,6 +8,8 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
+    "test": "node dist/validation/test-decisions.js",
+    "validate": "node -e \"import('./dist/validation/index.js').then(m => m.runAllTests())\"",
     "inspector": "npx @anthropic-ai/mcp-inspector dist/index.js"
   },
   "keywords": [

@@ -88,19 +88,23 @@ export interface PersonaDefinition {
 // ============================================================
 
 /**
- * Get the directory containing this module
+ * Get the project root directory
+ * Works from both src/ (development) and dist/ (production)
  */
-function getModuleDir(): string {
+function getProjectRoot(): string {
   const __filename = fileURLToPath(import.meta.url);
-  return dirname(__filename);
+  const moduleDir = dirname(__filename);
+  // Go up from dist/ or src/ to project root
+  return join(moduleDir, "..");
 }
 
 /**
  * Load a persona definition from YAML file
  */
 export function loadPersona(personaName: string): PersonaDefinition {
-  const moduleDir = getModuleDir();
-  const personaPath = join(moduleDir, "personas", `${personaName}.yaml`);
+  const projectRoot = getProjectRoot();
+  // Always look in src/personas/ for YAML files
+  const personaPath = join(projectRoot, "src", "personas", `${personaName}.yaml`);
 
   try {
     const yamlContent = readFileSync(personaPath, "utf-8");
