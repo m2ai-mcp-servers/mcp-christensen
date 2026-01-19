@@ -21,8 +21,8 @@ When you connect this server to Claude Desktop or Claude Code, you get a strateg
 
 ```bash
 # Clone the repository
-git clone https://github.com/m2ai-mcp-servers/christensen-mcp.git
-cd christensen-mcp
+git clone https://github.com/m2ai-mcp-servers/mcp-christensen.git
+cd mcp-christensen
 
 # Install dependencies
 npm install

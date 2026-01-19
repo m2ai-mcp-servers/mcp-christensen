@@ -1,27 +1,48 @@
 {
-  "name": "christensen-mcp",
-  "version": "0.1.0",
+  "name": "mcp-christensen",
+  "version": "0.1.1",
   "description": "Clayton Christensen persona agent - Strategic advisory through disruption theory and jobs-to-be-done frameworks",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "mcp-christensen": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
+    "prepublishOnly": "npm run build",
     "test": "node dist/validation/test-decisions.js",
     "validate": "node -e \"import('./dist/validation/index.js').then(m => m.runAllTests())\"",
     "inspector": "npx @anthropic-ai/mcp-inspector dist/index.js"
   },
   "keywords": [
     "mcp",
+    "model-context-protocol",
     "christensen",
     "disruption",
     "jtbd",
+    "jobs-to-be-done",
     "strategic-advisory",
-    "persona-agent"
+    "persona-agent",
+    "claude",
+    "anthropic"
   ],
   "author": "Matthew @ Me, Myself Plus AI LLC",
   "license": "MIT",
+  "mcpName": "io.github.m2ai-mcp-servers/mcp-christensen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m2ai-mcp-servers/mcp-christensen.git"
+  },
+  "homepage": "https://github.com/m2ai-mcp-servers/mcp-christensen#readme",
+  "bugs": {
+    "url": "https://github.com/m2ai-mcp-servers/mcp-christensen/issues"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "yaml": "^2.3.4",

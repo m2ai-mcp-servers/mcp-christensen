@@ -3,3 +3,7 @@ dist/
 .env
 *.log
 .DS_Store
+
+# MCP Registry auth tokens
+.mcpregistry_*
+mcp-publisher
